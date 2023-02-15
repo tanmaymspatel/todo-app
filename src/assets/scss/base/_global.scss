@@ -160,6 +160,22 @@ button {
     padding: 1rem;
 }
 
+.p-4 {
+    padding: 1.5rem;
+}
+
+.ms-2 {
+    margin-left: 0.5rem;
+}
+
+.ms-3 {
+    margin-left: 1rem;
+}
+
+.ms-4 {
+    margin-left: 1.5rem;
+}
+
 .img-fluid {
     max-width: 100%;
     height: auto;
@@ -172,6 +188,11 @@ button {
 
 .position-absolute {
     position: absolute;
+}
+
+// 
+.border {
+    border-radius: $border-radius;
 }
 
 .section {

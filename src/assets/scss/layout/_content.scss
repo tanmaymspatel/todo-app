@@ -1,0 +1,32 @@
+.content-width {
+    width: $content-width;
+    margin: 0 auto;
+    padding: 4rem 0;
+}
+
+.main-content {
+    .round-check {
+        width: 25px;
+        height: 25px;
+        border: 1px solid $greyish-blue-dark-1;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .content-width {
+        padding: 0;
+    }
+
+    .form-control {
+        padding: 1rem 2rem;
+    }
+
+    .todo-container {
+        margin-top: -10rem;
+    }
+
+    // Dark Mode
+    &.dark-mode {
+        background-color: $secondary;
+    }
+}

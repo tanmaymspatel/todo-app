@@ -1,0 +1,16 @@
+#header {
+    flex: 0 0 $header-size;
+
+    &.dark-mode-bg {
+        background-image: url("../../images/bg-desktop-dark.jpg");
+    }
+
+    &.light-mode-bg {
+        background-image: url("../../images/bg-desktop-light.jpg");
+    }
+
+    .heading {
+        color: white;
+        letter-spacing: 6px;
+    }
+}
