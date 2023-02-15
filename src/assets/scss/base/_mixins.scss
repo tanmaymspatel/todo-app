@@ -1,0 +1,80 @@
+// desktop first
+@mixin breakpoint-down($point) {
+    @if $point ==xxl {
+        @media (max-width: 1400px) {
+            @content ;
+        }
+    }
+
+    @else if $point ==xl {
+        @media (max-width: 1200px) {
+            @content ;
+        }
+    }
+
+    @else if $point ==lg {
+        @media (max-width: 992px) {
+            @content ;
+        }
+    }
+
+    @if $point ==md {
+        @media (max-width: 768px) {
+            @content ;
+        }
+    }
+
+    @else if $point ==sm {
+        @media (max-width: 576px) {
+            @content ;
+        }
+    }
+
+    @else if $point ==x-sm {
+        @media (max-width: 320px) {
+            @content ;
+        }
+
+    }
+}
+
+
+// mobile first 
+
+@mixin breakpoint-up($point) {
+    @if $point ==x-sm {
+        @media (min-width: 320px) {
+            @content ;
+        }
+    }
+
+    @else if $point ==sm {
+        @media (min-width: 576px) {
+            @content ;
+        }
+    }
+
+    @if $point ==md {
+        @media (min-width: 768px) {
+            @content ;
+        }
+    }
+
+    @else if $point ==lg {
+        @media (min-width: 992px) {
+            @content ;
+        }
+    }
+
+    @else if $point ==xl {
+        @media (min-width: 1200px) {
+            @content ;
+        }
+    }
+
+    @else if $point ==xxl {
+        @media (min-width: 1400px) {
+            @content ;
+        }
+    }
+}
