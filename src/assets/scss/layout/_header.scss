@@ -3,10 +3,12 @@
 
     &.dark-mode-bg {
         background-image: url("../../images/bg-desktop-dark.jpg");
+        background-size: cover;
     }
 
     &.light-mode-bg {
         background-image: url("../../images/bg-desktop-light.jpg");
+        background-size: cover;
     }
 
     .heading {

@@ -4,7 +4,7 @@ function CreateTodo() {
     const [todo, setTodo] = useState<string>("")
     return (
         <div className="container todo-container">
-            <div className="bg-light d-flex align-items-center form-control border">
+            <div className="bg-light d-flex align-items-center padding border shadow-sm">
                 <label htmlFor="todo" className="round-check"></label>
                 <input
                     type="text"
