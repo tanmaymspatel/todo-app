@@ -3,7 +3,7 @@ export const todoList = [
     {
         id: 1,
         todo: "Completed online JavaScript courese",
-        isCompleted: false
+        isCompleted: true
     },
     {
         id: 2,
