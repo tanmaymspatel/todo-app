@@ -2,6 +2,50 @@
     width: $content-width;
     margin: 0 auto;
     padding: 4rem 0;
+
+    &.dark-mode {
+        color: $light;
+
+        .input-container {
+            background-color: $danger-dark;
+
+            #todo {
+                color: $light;
+                background-color: $danger-dark;
+            }
+        }
+
+        .nav-item,
+        .footer {
+            background-color: $danger-dark;
+        }
+
+        .text-line-through {
+            color: $warning;
+        }
+
+        .todo-footer-2 {
+            .footer-text:not(:first-child) {
+                color: $warning;
+
+                &:hover {
+                    color: $info-hover
+                }
+            }
+        }
+
+        .todo-footer-3,
+        .todo-footer-1 {
+            .footer-text {
+                color: $warning;
+
+                &:hover {
+                    color: $info-hover
+                }
+            }
+        }
+
+    }
 }
 
 .shadow-sm {
@@ -10,10 +54,14 @@
 
 .text-line-through {
     text-decoration: line-through;
-    color: $grey-light-2;
+    color: $greyish-blue-dark-1;
 }
 
 .main-content {
+    .input-container {
+        background-color: $light;
+    }
+
     .round-check {
         width: 25px;
         height: 25px;
@@ -66,11 +114,37 @@
             right: 20px;
             transform: translateY(-50%);
             visibility: hidden;
+            z-index: 10;
         }
     }
 
     .todo-footer {
         width: 33%;
+    }
+
+    .todo-footer-2 {
+        .footer-text:not(:first-child) {
+            color: $greyish-blue-dark-1;
+            font-weight: 700;
+            transition: $transition-timimg all;
+
+            &:hover {
+                color: $dark;
+            }
+        }
+    }
+
+    .todo-footer-3,
+    .todo-footer-1 {
+        .footer-text {
+            color: $greyish-blue-dark-1;
+            font-size: 0.875rem;
+            transition: $transition-timimg all;
+
+            &:hover {
+                color: $dark;
+            }
+        }
     }
 
     // Dark Mode

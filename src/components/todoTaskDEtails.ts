@@ -1,5 +1,9 @@
-
-export const todoList = [
+export interface Todo {
+    id: number,
+    todo: string,
+    isCompleted: boolean
+}
+export const todoList: Todo[] = [
     {
         id: 1,
         todo: "Completed online JavaScript courese",
@@ -11,5 +15,3 @@ export const todoList = [
         isCompleted: false
     },
 ]
-
-
