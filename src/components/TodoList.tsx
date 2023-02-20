@@ -2,41 +2,43 @@ import { useEffect, useState } from 'react';
 
 import deleteImg from '../assets/images/icon-cross.svg'
 import check from '../assets/images/icon-check.svg'
-import { Todo } from './todoTaskDetails';
+import { Todos } from './todoTaskDetails';
 
-function TodoList() {
-    const [todos, setTodos] = useState<any[]>([]);
+interface ITodoListProps {
+    todo: Todos[],
+    updateTodo: (updatedTodo: Todos, index: number) => void,
+    deleteTodo: (id: number) => void,
+    clearTodo: () => void
+}
+
+function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
+    // const [todos, setTodos] = useState<any[]>([]);
     const [completedTodo, setCompletedTodo] = useState<any[]>([]);
     const [activeTodo, setActiveTodo] = useState<any[]>([]);
     const [listType, setListType] = useState<string>("all");
 
-    const onTodoClick = (todo: Todo, index: number) => {
-        todo.isCompleted === true ? todo.isCompleted = false : todo.isCompleted = true;
-        todos?.splice(index, 1, todo);
-        localStorage.setItem("todoList", JSON.stringify(todos))
-        setTodos(todos);
+    const onTodoClick = (todo: Todos, index: number) => {
+        updateTodo(todo, index);
     }
 
     const onDelete = (id: number) => {
-        const newList = todos?.filter((todo: Todo) => todo.id !== id);
-        localStorage.setItem("todoList", JSON.stringify(newList));
-        setTodos(newList);
+        deleteTodo(id)
     }
 
     const ranerTodoList = (text: string) => {
         switch (text) {
             case "all":
-                return todos;
+                return todo;
             case "active":
                 return activeTodo;
             case "completed":
                 return completedTodo;
             default:
-                return todos;
+                return todo;
         }
     }
 
-    const todoData = ranerTodoList(listType)?.map((todo: Todo, index: number) => {
+    const todoData = todo && todo.length > 0 && ranerTodoList(listType)?.map((todo: Todos, index: number) => {
         return (
             <li className="nav-item d-flex align-items-center position-relative"
                 key={index}
@@ -59,24 +61,17 @@ function TodoList() {
     })
 
     const clearTodoHandler = () => {
-        const clearCompltedTodo = todos.filter(todo => todo.isCompleted === false);
-        localStorage.setItem("todoList", JSON.stringify(clearCompltedTodo));
-        setTodos(clearCompltedTodo);
+        clearTodo();
     }
 
     useEffect(() => {
-        const jsonString = localStorage.getItem("todoList") as string;
-        setTodos(JSON.parse(jsonString))
-    }, []);
-
-    useEffect(() => {
-        const completedTodo = todos.filter(todo => todo.isCompleted === true);
+        const completedTodo = todo?.filter(todo => todo.isCompleted === true);
         setCompletedTodo(completedTodo);
-    }, [todos])
+    }, [todo])
     useEffect(() => {
-        const activeTodo = todos.filter(todo => todo.isCompleted === false)
+        const activeTodo = todo?.filter(todo => todo.isCompleted === false)
         setActiveTodo(activeTodo)
-    }, [todos]);
+    }, [todo]);
 
     return (
         <div className="todo-list-container container">
@@ -88,9 +83,9 @@ function TodoList() {
                 </div>
                 <div className="d-flex padding footer">
                     <div className="todo-footer todo-footer-1">
-                        <p className='footer-text'>
-                            {activeTodo.length} items left
-                        </p>
+                        {todo && <p className='footer-text'>
+                            {activeTodo?.length} items left
+                        </p>}
                     </div>
                     <div className="todo-footer todo-footer-2 d-flex">
                         <p className='cursor-pointer footer-text text-primary' onClick={() => setListType('all')}>All</p>

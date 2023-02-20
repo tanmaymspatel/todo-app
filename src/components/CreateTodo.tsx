@@ -1,21 +1,20 @@
 import { useState } from "react";
 import utilityServices from "../shared/services/utilityServices";
 
-function CreateTodo() {
-    const [todo, setTodo] = useState<string>("");
+function CreateTodo({ addTodo, allTodos }: any) {
+
+    const [todoValue, setTodoValue] = useState("");
+
     const { getMaxId } = utilityServices
 
     const onEnterClick = (e: any) => {
         if (e.key === "Enter") {
-            setTodo(e.target.value)
-            const newList = (JSON.parse(localStorage.getItem("todoList") as string))
-            newList.push({
-                id: getMaxId(newList) + 1,
-                todo: todo,
+            addTodo({
+                id: !allTodos?.length ? 1 : getMaxId(allTodos) + 1,
+                todo: todoValue,
                 isCompleted: false
             });
-            localStorage.setItem("todoList", JSON.stringify(newList))
-            setTodo("");
+            setTodoValue("");
         }
 
     }
@@ -28,8 +27,8 @@ function CreateTodo() {
                     name="todo"
                     id="todo"
                     onKeyDown={(e) => onEnterClick(e)}
-                    onChange={(e) => setTodo(e.target.value)}
-                    value={todo}
+                    onChange={(e) => setTodoValue(e.target.value)}
+                    value={todoValue}
                     className="w-100 ms-2"
                     placeholder="Create a new todo..."
                 />

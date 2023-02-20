@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Todo from "./components/Todo";
-import { todoList } from "./components/todoTaskDetails";
+// import { todoList } from "./components/todoTaskDetails";
 import DarkModeContext from "./context/dark-mode-context/darkMode";
 import Header from "./core/components/Header";
 

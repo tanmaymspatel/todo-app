@@ -1,6 +1,6 @@
-import { Todo } from "../../components/todoTaskDetails";
+import { Todos } from "../../components/todoTaskDetails";
 
-const setLocalStorage = (data: Todo[]) => {
+const setLocalStorage = (data: Todos[]) => {
     localStorage.setItem("todoList", JSON.stringify(data));
 };
 
@@ -9,8 +9,8 @@ const setLocalStorage = (data: Todo[]) => {
  * @param List task list from which item of maximum id is to be found
  * @returns a maximum number
  */
-const getMaxId = (List: Todo[]) => {
-    return Math.max(...List.map((task: Todo) => task.id));
+const getMaxId = (List: Todos[]) => {
+    return Math.max(...List.map((task: Todos) => task.id));
 }
 
 const utilityServices = {
