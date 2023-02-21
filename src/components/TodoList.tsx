@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import deleteImg from '../assets/images/icon-cross.svg'
-import check from '../assets/images/icon-check.svg'
 import { Todos } from './todoTaskDetails';
+import TodoItem from './TodoItem';
 
 interface ITodoListProps {
     todo: Todos[],
@@ -12,7 +11,6 @@ interface ITodoListProps {
 }
 
 function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
-    // const [todos, setTodos] = useState<any[]>([]);
     const [completedTodo, setCompletedTodo] = useState<any[]>([]);
     const [activeTodo, setActiveTodo] = useState<any[]>([]);
     const [listType, setListType] = useState<string>("all");
@@ -40,22 +38,12 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
 
     const todoData = todo && todo.length > 0 && ranerTodoList(listType)?.map((todo: Todos, index: number) => {
         return (
-            <li className="nav-item d-flex align-items-center position-relative"
-                key={index}
-            >
-                <label
-                    onClick={() => onTodoClick(todo, index)}
-                    htmlFor="todo" className="round-check cursor-pointer">
-                    {todo.isCompleted && <figure className='check-container d-flex align-items-center justify-content-center'>
-                        <img src={check} alt="check-mark" className='icon-check' />
-                    </figure>}
-                </label>
-                <p
-                    className={`${todo.isCompleted ? "text-line-through" : ""} todo-text cursor-pointer`}>{todo.todo}</p>
-                <img src={deleteImg} alt="delete" className='delete-icon position-absolute cursor-pointer'
-                    onClick={() => onDelete(todo.id)}
-                />
-            </li>
+            <TodoItem
+                onTodoClick={onTodoClick}
+                todo={todo}
+                index={index}
+                onDelete={onDelete}
+            />
         )
     })
 
