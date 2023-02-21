@@ -1,0 +1,23 @@
+// theme Color
+$primary: hsl(220, 98%, 61%); // Bright Blue
+$light: hsl(0, 0%, 100%); // White 
+$grey: hsl(217, 16%, 45%); // Header Outline
+$dark: hsl(229, 25%, 31%); // Dark Text
+
+//linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%)
+
+// light theme color
+$grey-light-1: hsl(0, 0%, 98%);
+$grey-light-2: hsl(236, 33%, 92%);
+$greyish-blue-light: hsl(233, 11%, 84%);
+$greyish-blue-dark-1: hsl(236, 9%, 61%);
+$greyish-blue-dark-2: hsl(235, 19%, 35%);
+
+//dark theme color
+$secondary: hsl(235, 21%, 11%); // Very Dark Blue 
+$success: hsl(235, 24%, 19%); // Very Dark Desaturated Blue
+$info: hsl(234, 39%, 85%); //Light Grayish Blue
+$info-hover: hsl(236, 33%, 92%); //Light Grayish Blue - hover
+$warning: hsl(234, 11%, 52%); // Dark Grayish Blue
+$danger: hsl(233, 14%, 35%); //Very Dark Grayish Blue
+$danger-dark: hsl(237, 14%, 26%); //Very Dark Grayish Blue

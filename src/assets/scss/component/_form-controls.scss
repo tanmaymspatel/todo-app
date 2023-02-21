@@ -1,0 +1,20 @@
+input {
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+#todo {
+    padding: 0.75rem 1rem;
+    border: none;
+
+    &,
+    &::placeholder {
+        font-size: 0.8755rem;
+        color: $greyish-blue-dark-1;
+
+        @include breakpoint-up(md) {
+            font-size: 1.125rem;
+        }
+    }
+}
