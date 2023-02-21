@@ -1,12 +1,16 @@
 import { useState } from "react";
 import utilityServices from "../shared/services/utilityServices";
-
+/**
+ * @returns new todo input element 
+ */
 function CreateTodo({ addTodo, allTodos }: any) {
 
     const [todoValue, setTodoValue] = useState("");
-
-    const { getMaxId } = utilityServices
-
+    const { getMaxId } = utilityServices;
+    /**
+     * @name onEnterClick
+     * @description get value od todo after enter is pressed
+     */
     const onEnterClick = (e: any) => {
         if (e.key === "Enter") {
             addTodo({

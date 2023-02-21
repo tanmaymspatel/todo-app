@@ -4,7 +4,9 @@ import DarkModeContext from './darkMode';
 interface darkModeProps {
     children: React.ReactNode
 }
-
+/**
+ * @returns properties for providing dark mode 
+ */
 function DarkModeProvider({ children }: darkModeProps) {
 
     const [darkMode, setDarkMode] = useState(false);

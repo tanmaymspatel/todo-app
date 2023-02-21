@@ -190,6 +190,11 @@
         }
     }
 
+    .drag-drop-text {
+        padding: 6rem 0 2rem 0;
+        color: $greyish-blue-dark-1
+    }
+
     // dark mode styles
     &.dark-mode {
         background-color: $secondary;
