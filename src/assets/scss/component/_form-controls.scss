@@ -10,7 +10,11 @@ input {
 
     &,
     &::placeholder {
-        font-size: 1.125rem;
+        font-size: 0.8755rem;
         color: $greyish-blue-dark-1;
+
+        @include breakpoint-up(md) {
+            font-size: 1.125rem;
+        }
     }
 }

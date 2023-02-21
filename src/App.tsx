@@ -7,8 +7,6 @@ import Header from "./core/components/Header";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
-  // localStorage.setItem("todoList", JSON.stringify(todoList));
-
   return (
     <div className="h-100 d-flex flex-column">
       <Header />

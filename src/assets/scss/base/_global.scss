@@ -6,11 +6,6 @@ body {
     height: 100%;
 }
 
-html,
-body {
-    overflow: hidden;
-}
-
 body {
     font-family: $font-family-base;
     font-size: $font-size-base;
@@ -187,6 +182,10 @@ button {
 
 .text-center {
     text-align: center;
+}
+
+.text-end {
+    text-align: end;
 }
 
 // position

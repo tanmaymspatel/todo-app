@@ -51,8 +51,7 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
                     </figure>}
                 </label>
                 <p
-
-                    className={`${todo.isCompleted ? "text-line-through" : ""} todo-margin cursor-pointer`}>{todo.todo}</p>
+                    className={`${todo.isCompleted ? "text-line-through" : ""} todo-text cursor-pointer`}>{todo.todo}</p>
                 <img src={deleteImg} alt="delete" className='delete-icon position-absolute cursor-pointer'
                     onClick={() => onDelete(todo.id)}
                 />
@@ -75,13 +74,13 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
 
     return (
         <div className="todo-list-container container">
-            <div className="bg-light border shadow-sm d-flex flex-column">
-                <div className="flex-grow-1">
+            <div className="bg-light border shadow-sm d-flex flex-column overflow-hidden">
+                <div className="todo-list flex-grow-1">
                     <ul>
                         {todoData}
                     </ul>
                 </div>
-                <div className="d-flex padding footer">
+                <div className="d-flex padding footer position-relative">
                     <div className="todo-footer todo-footer-1">
                         {todo && <p className='footer-text'>
                             {activeTodo?.length} items left
@@ -92,7 +91,7 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
                         <p className="cursor-pointer footer-text mx-2" onClick={() => setListType('active')}>Active</p>
                         <p className='cursor-pointer footer-text' onClick={() => setListType('completed')} >Completed</p>
                     </div>
-                    <div className="todo-footer text-center todo-footer-3">
+                    <div className="todo-footer text-end todo-footer-3">
                         <p className='cursor-pointer footer-text' onClick={clearTodoHandler}>Clear Completed</p>
                     </div>
                 </div>

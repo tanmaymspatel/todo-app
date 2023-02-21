@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import DarkModeContext from "../context/dark-mode-context/darkMode";
+import { useEffect, useState } from "react";
 
 import CreateTodo from "./CreateTodo";
 import TodoList from "./TodoList";
@@ -7,7 +6,6 @@ import { Todos } from "./todoTaskDetails";
 
 function Todo() {
     const allTodos = JSON.parse(localStorage.getItem("todoList") as string)
-    const { darkMode } = useContext(DarkModeContext)
     const [todo, setTodo] = useState<Todos[]>(allTodos);
 
     const addTodo = (value: Todos) => {
@@ -43,7 +41,7 @@ function Todo() {
     }, [todo])
 
     return (
-        <div className={`${darkMode ? "dark-mode" : ""} content-width`}>
+        <div className="content-width">
             <CreateTodo addTodo={addTodo}
                 allTodos={allTodos} />
             <TodoList
