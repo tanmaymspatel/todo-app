@@ -13,12 +13,15 @@ function CreateTodo({ addTodo, allTodos }: any) {
      */
     const onEnterClick = (e: any) => {
         if (e.key === "Enter") {
-            addTodo({
-                id: !allTodos?.length ? 1 : getMaxId(allTodos) + 1,
-                todo: todoValue,
-                isCompleted: false
-            });
-            setTodoValue("");
+            if (todoValue !== "") {
+                addTodo({
+                    id: !allTodos?.length ? 1 : getMaxId(allTodos) + 1,
+                    todo: todoValue,
+                    isCompleted: false
+                });
+                setTodoValue("");
+            }
+            else alert("Plaese Enter Value");
         }
 
     }
