@@ -144,13 +144,23 @@
                 box-shadow: none;
             }
 
-            .footer-text:not(:first-child) {
-                color: $greyish-blue-dark-1;
-                font-weight: 700;
-                transition: $transition-timimg all;
+            .footer-text {
 
-                &:hover {
-                    color: $dark;
+                &:not(:first-child) {
+                    color: $greyish-blue-dark-1;
+                    font-weight: 700;
+                    transition: $transition-timimg all;
+
+                    &:hover,
+                    &.active {
+                        color: $dark;
+                    }
+                }
+
+                &:first-child {
+                    &.active {
+                        font-weight: 900;
+                    }
                 }
             }
         }
@@ -171,21 +181,6 @@
                 &:hover {
                     color: $dark;
                 }
-            }
-        }
-    }
-
-
-
-    .todo-footer-3,
-    .todo-footer-1 {
-        .footer-text {
-            color: $greyish-blue-dark-1;
-            font-size: 0.875rem;
-            transition: $transition-timimg all;
-
-            &:hover {
-                color: $dark;
             }
         }
     }
