@@ -3,9 +3,11 @@ import { useContext } from "react";
 import DarkModeContext from "../../context/dark-mode-context/darkMode";
 import darkModeImg from '../../assets/images/icon-moon.svg'
 import lightModeImg from '../../assets/images/icon-sun.svg'
-
+/**
+ * @returns Header of the page
+ */
 function Header() {
-
+    // context consumption
     const { darkMode, setDarkMode } = useContext(DarkModeContext);
 
     return (

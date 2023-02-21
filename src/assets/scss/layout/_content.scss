@@ -71,6 +71,7 @@
         .nav-item {
             border-bottom: 1px solid $greyish-blue-dark-2;
             padding: 1.25rem 1rem;
+            cursor: move;
 
             @include breakpoint-up(md) {
                 padding: 1.5rem 2rem;
@@ -110,9 +111,11 @@
             right: 20px;
             transform: translateY(-50%);
             z-index: 10;
+            width: 15px;
 
             @include breakpoint-up(md) {
                 visibility: hidden;
+                width: auto;
             }
         }
     }
@@ -185,6 +188,11 @@
                 color: $dark;
             }
         }
+    }
+
+    .drag-drop-text {
+        padding: 6rem 0 2rem 0;
+        color: $greyish-blue-dark-1
     }
 
     // dark mode styles

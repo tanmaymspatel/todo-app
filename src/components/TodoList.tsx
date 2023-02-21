@@ -1,30 +1,47 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 
-import deleteImg from '../assets/images/icon-cross.svg'
-import check from '../assets/images/icon-check.svg'
 import { Todos } from './todoTaskDetails';
+import TodoItem from './TodoItem';
+import useDragDrop from '../hooks/useDragDrop';
 
 interface ITodoListProps {
     todo: Todos[],
     updateTodo: (updatedTodo: Todos, index: number) => void,
     deleteTodo: (id: number) => void,
-    clearTodo: () => void
+    clearTodo: () => void,
+    setTodo: React.Dispatch<SetStateAction<Todos[]>>
 }
-
-function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
-    // const [todos, setTodos] = useState<any[]>([]);
+/**
+ * @returns todo list 
+ */
+function TodoList({ todo, updateTodo, deleteTodo, clearTodo, setTodo }: ITodoListProps) {
     const [completedTodo, setCompletedTodo] = useState<any[]>([]);
     const [activeTodo, setActiveTodo] = useState<any[]>([]);
     const [listType, setListType] = useState<string>("all");
-
+    // use of custom drag and drop hook
+    const [, , handleDragStart, handleDragEnter, handleDragEnd, newList] = useDragDrop<Todos>(todo)
+    /**
+     * @name onTodoClick
+     * @description update value of todo
+     * @param todo todo with updated value
+     * @param index index of todo in todo list array
+     */
     const onTodoClick = (todo: Todos, index: number) => {
         updateTodo(todo, index);
     }
-
+    /**
+     * @name onDelete
+     * @description delete todo on click
+     * @param id id of the clicked todo
+     */
     const onDelete = (id: number) => {
         deleteTodo(id)
     }
-
+    /**
+     * @name ranerTodoList
+     * @description rander the todo list according to text which is clicked
+     * @param text type of the todo list
+     */
     const ranerTodoList = (text: string) => {
         switch (text) {
             case "all":
@@ -37,36 +54,47 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
                 return todo;
         }
     }
-
+    /**
+     * looping the list
+     */
     const todoData = todo && todo.length > 0 && ranerTodoList(listType)?.map((todo: Todos, index: number) => {
         return (
-            <li className="nav-item d-flex align-items-center position-relative"
+            <li
+                className="nav-item d-flex align-items-center position-relative"
                 key={index}
+                draggable
+                onDragStart={() => handleDragStart(index)}
+                onDragEnter={() => handleDragEnter(index)}
+                onDragEnd={handleDragEnd}
+                onDragOver={(e) => e.preventDefault()}
             >
-                <label
-                    onClick={() => onTodoClick(todo, index)}
-                    htmlFor="todo" className="round-check cursor-pointer">
-                    {todo.isCompleted && <figure className='check-container d-flex align-items-center justify-content-center'>
-                        <img src={check} alt="check-mark" className='icon-check' />
-                    </figure>}
-                </label>
-                <p
-                    className={`${todo.isCompleted ? "text-line-through" : ""} todo-text cursor-pointer`}>{todo.todo}</p>
-                <img src={deleteImg} alt="delete" className='delete-icon position-absolute cursor-pointer'
-                    onClick={() => onDelete(todo.id)}
+                <TodoItem
+                    key={index}
+                    onTodoClick={onTodoClick}
+                    todo={todo}
+                    index={index}
+                    onDelete={onDelete}
                 />
             </li>
         )
     })
-
+    /**
+     * @name clearTodoHandler
+     * @description Clear all the completed todos
+     */
     const clearTodoHandler = () => {
         clearTodo();
     }
-
+    // set todos after drag and drop action
+    useEffect(() => {
+        newList && setTodo(newList)
+    }, [newList, setTodo])
+    // set complted todos
     useEffect(() => {
         const completedTodo = todo?.filter(todo => todo.isCompleted === true);
         setCompletedTodo(completedTodo);
     }, [todo])
+    // set active todos
     useEffect(() => {
         const activeTodo = todo?.filter(todo => todo.isCompleted === false)
         setActiveTodo(activeTodo)
