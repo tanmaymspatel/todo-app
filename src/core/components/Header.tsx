@@ -19,7 +19,7 @@ function Header() {
                 <div className="d-flex align-items-center justify-content-between">
                     <h1 className="heading">TODO</h1>
                     <img
-                        src={darkMode ? darkModeImg : lightModeImg}
+                        src={darkMode ? lightModeImg : darkModeImg}
                         alt="dark-mode"
                         className="cursor-pointer"
                         onClick={() => { setDarkMode(prevMode => !prevMode) }}

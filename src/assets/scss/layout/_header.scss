@@ -1,12 +1,26 @@
 #header {
-    flex: 0 0 $header-size;
+    flex: 0 0 $header-size-sm;
+
+    @include breakpoint-up(md) {
+        flex: 0 0 $header-size;
+    }
 
     &.dark-mode-bg {
-        background-image: url("../../images/bg-desktop-dark.jpg");
+        background-image: url("../../images/bg-mobile-dark.jpg");
+        background-size: cover;
+
+        @include breakpoint-up(sm) {
+            background-image: url("../../images/bg-desktop-dark.jpg");
+        }
     }
 
     &.light-mode-bg {
-        background-image: url("../../images/bg-desktop-light.jpg");
+        background-image: url("../../images/bg-mobile-light.jpg");
+        background-size: cover;
+
+        @include breakpoint-up(sm) {
+            background-image: url("../../images/bg-desktop-light.jpg");
+        }
     }
 
     .heading {

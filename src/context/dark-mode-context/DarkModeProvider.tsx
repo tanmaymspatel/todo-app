@@ -13,6 +13,7 @@ function DarkModeProvider({ children }: darkModeProps) {
         darkMode,
         setDarkMode
     }
+
     return (
         <DarkModeContext.Provider value={ctx}>
             {children}

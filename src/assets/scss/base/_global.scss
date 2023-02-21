@@ -6,11 +6,6 @@ body {
     height: 100%;
 }
 
-html,
-body {
-    overflow: hidden;
-}
-
 body {
     font-family: $font-family-base;
     font-size: $font-size-base;
@@ -176,9 +171,21 @@ button {
     margin-left: 1.5rem;
 }
 
+.mx-2 {
+    margin: 0 0.5rem;
+}
+
 .img-fluid {
     max-width: 100%;
     height: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-end {
+    text-align: end;
 }
 
 // position
@@ -210,6 +217,10 @@ li {
 
 .text-light {
     color: $light;
+}
+
+.text-primary {
+    color: $primary;
 }
 
 .bg-light {
