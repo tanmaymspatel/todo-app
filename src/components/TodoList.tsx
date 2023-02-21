@@ -39,6 +39,7 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo }: ITodoListProps) {
     const todoData = todo && todo.length > 0 && ranerTodoList(listType)?.map((todo: Todos, index: number) => {
         return (
             <TodoItem
+                key={index}
                 onTodoClick={onTodoClick}
                 todo={todo}
                 index={index}

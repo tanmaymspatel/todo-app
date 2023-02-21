@@ -14,7 +14,6 @@ function Todo() {
             else return [...prev, value]
         })
         localStorage.setItem("todoList", JSON.stringify(todo));
-        console.log(value)
     }
 
     const updateTodo = (updatedTodo: Todos, index: number) => {
