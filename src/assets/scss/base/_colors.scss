@@ -3,6 +3,7 @@ $primary: hsl(220, 98%, 61%); // Bright Blue
 $light: hsl(0, 0%, 100%); // White 
 $grey: hsl(217, 16%, 45%); // Header Outline
 $dark: hsl(229, 25%, 31%); // Dark Text
+$danger: #dc3545;
 
 //linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%)
 
@@ -19,5 +20,5 @@ $success: hsl(235, 24%, 19%); // Very Dark Desaturated Blue
 $info: hsl(234, 39%, 85%); //Light Grayish Blue
 $info-hover: hsl(236, 33%, 92%); //Light Grayish Blue - hover
 $warning: hsl(234, 11%, 52%); // Dark Grayish Blue
-$danger: hsl(233, 14%, 35%); //Very Dark Grayish Blue
+$danger-dark-blue: hsl(233, 14%, 35%); //Very Dark Grayish Blue
 $danger-dark: hsl(237, 14%, 26%); //Very Dark Grayish Blue

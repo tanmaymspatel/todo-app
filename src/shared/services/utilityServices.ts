@@ -6,11 +6,11 @@ const setLocalStorage = (data: Todos[]) => {
 
 /**
  * @name getMaxId
- * @param List task list from which item of maximum id is to be found
+ * @param List todo list from which item of maximum id is to be found
  * @returns a maximum number
  */
 const getMaxId = (List: Todos[]) => {
-    return Math.max(...List.map((task: Todos) => task.id));
+    return Math.max(...List.map((todo: Todos) => todo.id));
 }
 
 const utilityServices = {
