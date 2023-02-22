@@ -1,9 +1,8 @@
-import { SetStateAction, useEffect, useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 import { Todos } from './todoTaskDetails';
 import TodoItem from './TodoItem';
-import useDragDrop from '../hooks/useDragDrop';
 
 interface ITodoListProps {
     todo: Todos[],
@@ -16,11 +15,19 @@ interface ITodoListProps {
  * @returns todo list 
  */
 function TodoList({ todo, updateTodo, deleteTodo, clearTodo, setTodo }: ITodoListProps) {
-    const [completedTodo, setCompletedTodo] = useState<any[]>([]);
-    const [activeTodo, setActiveTodo] = useState<any[]>([]);
+    const [completedTodo, setCompletedTodo] = useState<Todos[]>([]);
+    const [activeTodo, setActiveTodo] = useState<Todos[]>([]);
     const [listType, setListType] = useState<string>("all");
-    // use of custom drag and drop hook
-    const [, , handleDragStart, handleDragEnter, handleDragEnd, newList] = useDragDrop<Todos>(todo)
+
+    const handleOnDragEnd = (result: DropResult) => {
+        if (!result.destination) return;
+
+        const items = Array.from(randerTodoList(listType));
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+
+        setTodo(items);
+    }
     /**
      * @name onTodoClick
      * @description update value of todo
@@ -43,7 +50,7 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo, setTodo }: ITodoLis
      * @description rander the todo list according to text which is clicked
      * @param text type of the todo list
      */
-    const ranerTodoList = (text: string) => {
+    const randerTodoList = useCallback((text: string) => {
         switch (text) {
             case "all":
                 return todo;
@@ -54,26 +61,11 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo, setTodo }: ITodoLis
             default:
                 return todo;
         }
-    }
-    /**
-     * looping the list
-     */
-    // const todoData = todo && todo.length > 0 && ranerTodoList(listType)?.map((todo: Todos, index: number) => {
-    //     return (
-    //         <li
-    //             className="nav-item d-flex align-items-center position-relative"
-    //             key={index}
-    //         >
-    //             <TodoItem
-    //                 key={index}
-    //                 onTodoClick={onTodoClick}
-    //                 todo={todo}
-    //                 index={index}
-    //                 onDelete={onDelete}
-    //             />
-    //         </li>
-    //     )
-    // })
+    }, [activeTodo, completedTodo, todo])
+
+    const todoList = useMemo(() => {
+        return randerTodoList(listType)
+    }, [listType, randerTodoList]);
     /**
      * @name clearTodoHandler
      * @description Clear all the completed todos
@@ -81,28 +73,10 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo, setTodo }: ITodoLis
     const clearTodoHandler = () => {
         clearTodo();
     }
-
-    //drag drop
-    const handleOnDragEnd = (result: any) => {
-        if (!result.destination) return;
-
-        const items = Array.from(ranerTodoList(listType));
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-
-        setTodo(items);
-    }
-
-
-    // set todos after drag and drop action
-    useEffect(() => {
-        newList && setTodo(newList)
-    }, [newList, setTodo])
-    // set complted todos
     useEffect(() => {
         const completedTodo = todo?.filter(todo => todo.isCompleted === true);
         setCompletedTodo(completedTodo);
-    }, [todo])
+    }, [todo]);
     // set active todos
     useEffect(() => {
         const activeTodo = todo?.filter(todo => todo.isCompleted === false)
@@ -114,50 +88,49 @@ function TodoList({ todo, updateTodo, deleteTodo, clearTodo, setTodo }: ITodoLis
             <div className="bg-light border shadow-sm d-flex flex-column overflow-hidden">
                 <div className="todo-list flex-grow-1">
                     <DragDropContext onDragEnd={handleOnDragEnd}>
-                        <Droppable droppableId="todo-list">
-                            {(provided: any) => (
-                                <ul className="todo-list" {...provided.droppableProps} ref={provided.innerRef}>
-                                    {provided.placeholder}
-                                    {todo && todo.length > 0 && ranerTodoList(listType)?.map((todo: Todos, index: number) => {
-                                        return (
-                                            <Draggable key={index} draggableId={todo.todo} index={index}>
-                                                {(provided: any) => (
-                                                    <li
-                                                        ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
-                                                        className="nav-item d-flex align-items-center position-relative"
-                                                        key={index}
-                                                    >
-                                                        <TodoItem
-                                                            key={index}
-                                                            onTodoClick={onTodoClick}
-                                                            todo={todo}
-                                                            index={index}
-                                                            onDelete={onDelete}
-                                                        />
-                                                    </li>
-                                                )}
-                                            </Draggable>
-                                        )
-                                    })}
-                                </ul>
-                            )}
+                        <Droppable droppableId="todoList">
+                            {
+                                (provided, snapshot) => (
+                                    <ul
+                                        ref={provided.innerRef}
+                                        {...provided.droppableProps}
+                                        className={`${snapshot.isDraggingOver ? "drag-active" : ""}`}
+                                    >
+                                        {todoList.length !== 0 ? todoList?.map((todo: Todos, index: number) => {
+                                            return (
+                                                <TodoItem
+                                                    key={index}
+                                                    onTodoClick={onTodoClick}
+                                                    todo={todo}
+                                                    index={index}
+                                                    onDelete={onDelete}
+                                                />
+                                            )
+                                        })
+                                            :
+                                            <li className='nav-item d-flex align-items-center'>No Records Found!</li>}
+                                        {provided.placeholder}
+                                    </ul>
+                                )
+                            }
+
                         </Droppable>
                     </DragDropContext>
                 </div>
-                <div className="d-flex padding footer position-relative">
-                    <div className="todo-footer todo-footer-1">
-                        {todo && <p className='footer-text'>
+                <div className={`${todoList.length === 0 ? "justify-content-center" : ""} d-flex padding footer position-relative`}>
+                    {todoList.length !== 0 && <div className="todo-footer todo-footer-1">
+                        <p className='footer-text'>
                             {activeTodo?.length} items left
-                        </p>}
-                    </div>
+                        </p>
+                    </div>}
                     <div className="todo-footer todo-footer-2 d-flex">
-                        <p className='cursor-pointer footer-text text-primary' onClick={() => setListType('all')}>All</p>
-                        <p className="cursor-pointer footer-text mx-2" onClick={() => setListType('active')}>Active</p>
-                        <p className='cursor-pointer footer-text' onClick={() => setListType('completed')} >Completed</p>
+                        <p className={`${listType === "all" ? "active" : ""} cursor-pointer footer-text text-primary`} onClick={() => setListType('all')}>All</p>
+                        <p className={`${listType === "active" ? "active" : ""} cursor-pointer footer-text mx-2`} onClick={() => setListType('active')}>Active</p>
+                        <p className={`${listType === "completed" ? "active" : ""} cursor-pointer footer-text`} onClick={() => setListType('completed')} >Completed</p>
                     </div>
-                    <div className="todo-footer text-end todo-footer-3">
+                    {todoList.length !== 0 && <div className="todo-footer text-end todo-footer-3">
                         <p className='cursor-pointer footer-text' onClick={clearTodoHandler}>Clear Completed</p>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>

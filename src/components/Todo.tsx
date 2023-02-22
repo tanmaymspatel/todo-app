@@ -16,10 +16,7 @@ function Todo() {
      * @param value newly entered todo
      */
     const addTodo = (value: Todos) => {
-        setTodo((prev: Todos[]) => {
-            if (prev === null) return [value]
-            else return [...prev, value]
-        })
+        setTodo(prev => [...prev, value])
         localStorage.setItem("todoList", JSON.stringify(todo));
     }
     /**
@@ -60,6 +57,10 @@ function Todo() {
         todo && localStorage.setItem("todoList", JSON.stringify(todo));
     }, [todo])
 
+    useEffect(() => {
+        console.log(allTodos);
+
+    }, [allTodos])
     return (
         <div className="content-width">
             <CreateTodo addTodo={addTodo}
