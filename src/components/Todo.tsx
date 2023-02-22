@@ -55,12 +55,8 @@ function Todo() {
      */
     useEffect(() => {
         todo && localStorage.setItem("todoList", JSON.stringify(todo));
-    }, [todo])
+    }, [todo]);
 
-    useEffect(() => {
-        console.log(allTodos);
-
-    }, [allTodos])
     return (
         <div className="content-width">
             <CreateTodo addTodo={addTodo}
